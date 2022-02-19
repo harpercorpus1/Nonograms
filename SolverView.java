@@ -288,11 +288,11 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
     }
 
     public void show_empty_error(String error_msg){
-        JOptionPane.showMessageDialog(this, error_msg, "ERROR", JOptionPane.INFORMATION_MESSAGE );
+
     }
 
     public void show_bounds_error(String error_msg){
-        JOptionPane.showMessageDialog(this, error_msg, "ERROR", JOptionPane.INFORMATION_MESSAGE);
+        
     }
 
     public void disruptDrag(){

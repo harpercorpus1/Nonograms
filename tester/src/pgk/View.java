@@ -17,14 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class View extends JFrame implements MouseListener, ActionListener {
-//    private final List<JButton> board;
     private static int BOARD_SIZE;
-    private static final int GAME_BUTTON_SIZE = 20;
-    private Dimension BUTTON_DIM; 
-
-    // private int[] topLabel;
-    // private int[] sideLabel;
-    // private JFrame frame;
 
     private JPanel mainPanel;
     private JPanel firstPanel;
@@ -73,7 +66,7 @@ public class View extends JFrame implements MouseListener, ActionListener {
         mainPanel.setBackground(Color.BLACK);
 
         this.setSize(600,700);
-        this.setMinimumSize(new Dimension(600,700));
+        this.setMinimumSize(new Dimension(700,900));
         this.setVisible(true);
     }
 
@@ -84,7 +77,7 @@ public class View extends JFrame implements MouseListener, ActionListener {
         JLabel title = new JLabel("Solver");
         title.setFont(new Font("Serif", Font.BOLD, 60));
         title.setForeground((Color.PINK));
-        title.setBorder(new EmptyBorder(15,0,0,0));
+        title.setBorder(new EmptyBorder(10,0,0,0));
         firstPanel.setBackground(Color.BLACK);
         firstPanel.add(title);
     }
@@ -95,61 +88,74 @@ public class View extends JFrame implements MouseListener, ActionListener {
         constraints.gridy = y;
         constraints.gridwidth = width;
         constraints.gridheight = height;
+        constraints.weightx = 1.0;
+        constraints.weighty = 1.0;
         return constraints;
+    }
+
+    public JButton button_factory(Dimension dim){
+        JButton btn = new JButton();
+        btn.setMinimumSize(dim);
+        btn.setPreferredSize(dim);
+        btn.setMaximumSize(dim);
+        return btn;
+    }
+
+    public JTextPane textpane_factory(Dimension dim){
+        JTextPane text_pane = new JTextPane();
+        text_pane.setMinimumSize(dim);
+        text_pane.setPreferredSize(dim);
+        text_pane.setMaximumSize(dim);
+        return text_pane;
     }
 
     public void init_nonogram_board(){
         playerBoard = new JPanel();
-        // playerBoard.setLayout(new GridBagLayout());
-
-        GridBagLayout gbl = new GridBagLayout();
-
-        double[] colWeights = new double[15];
-        for(int i = 0; i < 15; i++){
-            colWeights[i] = 1.0;
-        }
-
-        gbl.columnWeights = colWeights;
-
-        playerBoard.setLayout(gbl);
-
-        playerBoard.setMaximumSize(new Dimension(600,500));
+        playerBoard.setLayout(new GridBagLayout());
+        playerBoard.setMaximumSize(new Dimension(700,600));
         playerBoard.setBackground(Color.BLACK);
 
         JButton btn;
         JTextPane tp;
-        JTextArea ta;
         GridBagConstraints constraints;
+
+        int dim1 = 40;
+        int dim2 = 60;
+
+        Dimension gamebtn_dim = new Dimension(dim1, dim1);
+        Dimension nullbtn_dim = new Dimension(dim2, dim2);
+
+        Dimension top_pane_dim = new Dimension(dim1, dim2);
+        Dimension side_pane_dim = new Dimension(dim2, dim1);
         
-        int input_panel_padding = 40;
         // empty button
-        btn = new JButton("null");
+        btn = button_factory(nullbtn_dim);
         constraints = generate_constraints(0, 0, 3, 3);
+        btn.setOpaque(true);
         playerBoard.add(btn, constraints);
 
         for(int i = 0; i < 15; i++){
-            tp = new JTextPane();
+            tp = textpane_factory(top_pane_dim);
             constraints = generate_constraints(i+3, 0, 1,3);
             tp.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            Dimension TextPaneDim = new Dimension(20, 40);
-            tp.setMinimumSize(TextPaneDim);
-            tp.setMaximumSize(TextPaneDim);
-            tp.setPreferredSize(TextPaneDim);
-            constraints.weightx = 1.0;
-            constraints.weighty = 1.0;
             playerBoard.add(tp, constraints);
-
-            // ta = new JTextArea(15, 15);
-            // constraints = generate_constraints(i+3, 0, 1, 3);
-            // ta.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            // constraints.ipady  = 15;
-            // playerBoard.add(ta, constraints);
+            top_panel.add(tp);
         }
-        btn = new JButton("Button");
-        constraints = generate_constraints(0,3,16,1);
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        playerBoard.add(btn, constraints);
-        
+
+        for(int i = 0; i < 15; i++){
+            tp = textpane_factory(side_pane_dim);
+            constraints = generate_constraints(0, i+3, 3, 1);
+            tp.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            playerBoard.add(tp, constraints);
+            side_panel.add(tp);
+
+            for(int j = 0; j < 15; j++){
+                btn = button_factory(gamebtn_dim);
+                constraints = generate_constraints(j+3, i+3, 1, 1);
+                playerBoard.add(btn, constraints);
+                board_buttons.add(btn);
+            }
+        }
     }
 
     public void init_solver_panel(){
@@ -169,7 +175,6 @@ public class View extends JFrame implements MouseListener, ActionListener {
         btn.setBackground(Color.WHITE);
         btn.setForeground(Color.BLACK);
         btn.setOpaque(true);
-        //btn.setBorderPainted(false);
 
         solveButtonPanel.add(btn, constraints);
         btn.addActionListener(this);
@@ -181,7 +186,6 @@ public class View extends JFrame implements MouseListener, ActionListener {
         btn.setBackground(Color.PINK);
         btn.setForeground(Color.BLACK);
         btn.setOpaque(true);
-        //btn.setBorderPainted(false);
 
         solveButtonPanel.add(btn, constraints);
         btn.addActionListener(this);
@@ -196,7 +200,6 @@ public class View extends JFrame implements MouseListener, ActionListener {
         btn.setBackground(Color.WHITE);
         btn.setForeground(Color.BLACK);
         btn.setOpaque(true);
-        //btn.setBorderPainted(false);
 
         solveButtonPanel.add(btn, constraints);
         btn.addActionListener(this);
@@ -207,12 +210,10 @@ public class View extends JFrame implements MouseListener, ActionListener {
 
     public void setColor(Color color, int row, int col){
         board_buttons.get(row * BOARD_SIZE + col).setBackground(color);
-        //board_buttons.get(row * BOARD_SIZE + col).setBorderPainted(false);
     }
 
     public void resetColor(Color color, int row, int col){
         board_buttons.get(row * BOARD_SIZE + col).setBackground(color);
-        // board_buttons.get(row * BOARD_SIZE + col).setBorderPainted(true);
     }
 
     public void toggle_button(char current_write_symbol){
@@ -256,13 +257,6 @@ public class View extends JFrame implements MouseListener, ActionListener {
     public void disruptDrag(){
         currently_compressed = false;
     }
-
-    // public void showIncorrect(){
-    //     final JOptionPane pane = new JOptionPane("Try Again");
-    //     final JDialog d = pane.createDialog((JFrame)null, "");
-    //     d.setLocation(100,100);
-    //     d.setVisible(true);
-    // }
 
     @Override
     public void actionPerformed(ActionEvent e){

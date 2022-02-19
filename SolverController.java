@@ -89,12 +89,12 @@ public class SolverController{
             sum = 0;
             for(int j = 0; j < model.top_panel[i].length; j++){
                 if(model.top_panel[i][j] < 0){
-                    return "Top Contains Negative Value at Space " + Integer.toString(i+1);
+                    return "Top Contains Negative Value " + Integer.toString(i) + "," + Integer.toString(j);
                 }
                 sum += model.top_panel[i][j];
             }
-            if((sum + (model.top_panel[i].length-1)) > model.getBoardSize()){
-                return "Top Contains Value out of bounds at Space " + Integer.toString(i+1);
+            if((sum + (model.top_panel[i].length-1)) > BOARD_SIZE){
+                "Top Contains Value out of bounds " + Integer.toString(i) + "," + Integer.toString(j);
             }
         }
 
@@ -102,12 +102,12 @@ public class SolverController{
             sum = 0;
             for(int j = 0; j < model.side_panel[i].length; j++){
                 if(model.side_panel[i][j] < 0){
-                    return "Side Contains Negative Value at Space " + Integer.toString(i+1);
+                    return "Side Contains Negative Value " + Integer.toString(i) + "," + Integer.toString(j);
                 }
                 sum += model.side_panel[i][j];
             }
-            if((sum + (model.side_panel[i].length-1)) >  model.getBoardSize()){
-                return "Side Contains Value out of bounds at Space " + Integer.toString(i+1);
+            if((sum + (model.side_panel[i].length-1)) > BOARD_SIZE){
+                "Side Contains Value out of bounds " + Integer.toString(i) + "," + Integer.toString(j);
             }
         }
 
@@ -135,7 +135,7 @@ public class SolverController{
         String error_msg = bounds_check();
         if(error_msg != "No Errors"){
             screen.show_bounds_error(error_msg);
-            return;
+            break;
         }
 
         

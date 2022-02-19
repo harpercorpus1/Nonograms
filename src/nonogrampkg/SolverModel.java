@@ -2,9 +2,10 @@ package nonogrampkg;
 
 public class SolverModel {
     private char[][] playerBoard;
-    private int[] top_panel;
-    private int[] side_panel;
     private int BOARD_SIZE;
+
+    public int[][] top_panel;
+    public int[][] side_panel;
 
     public SolverModel(int boardSize){
         this.BOARD_SIZE = boardSize;
@@ -24,14 +25,6 @@ public class SolverModel {
         }
     }
 
-    // public void populate_board_state(char[][] board_state){
-    //     for(int i = 0; i < BOARD_SIZE; i++){
-    //         for(int j = 0; j < BOARD_SIZE; j++){
-    //             playerBoard[i][j] = board_state[i][j];
-    //         }
-    //     }
-    // }
-
     public int getBoardSize(){return BOARD_SIZE;}
 
     public char player_board_query(int row, int col){
@@ -42,8 +35,23 @@ public class SolverModel {
         playerBoard[row][col] = writeChar;
     }
 
-    // public char solution_board_query(int row, int col){
-    //     return solutionBoard[row][col];
-    // }
+    public void populate_input_to_model(int[][] top, int[][] side){
+        top_panel = new int[BOARD_SIZE][];
+        for(int i = 0; i < BOARD_SIZE; i++){
+            top_panel[i] = new int[top[i].length];
+            for(int j = 0; j < top[i].length; j++){
+                top_panel[i][j] = top[i][j];
+            }
+        }
+
+        side_panel = new int[BOARD_SIZE][];
+        for(int i = 0; i < BOARD_SIZE; i++){
+            side_panel[i] = new int[side[i].length];
+            for(int j = 0; j < side[i].length; j++){
+                side_panel[i][j] = side[i][j];
+            }
+        }
+    }
+
 
 }
