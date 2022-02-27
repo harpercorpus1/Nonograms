@@ -11,5 +11,6 @@ public final class Nonogram{
         SolverModel model = new SolverModel(15);
         SolverController ctr = new SolverController(model, screen);
         screen.registerController(ctr);
+        ctr.add_tester_values();
     }
 }

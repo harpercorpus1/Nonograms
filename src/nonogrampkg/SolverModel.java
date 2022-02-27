@@ -35,6 +35,20 @@ public class SolverModel {
         playerBoard[row][col] = writeChar;
     }
 
+    public String player_board_row_query(int row){
+        return new String(playerBoard[row]);
+    }
+
+    public String player_board_column_query(int col){
+        String retString = "";
+
+        for(int i = 0; i < BOARD_SIZE; i++){
+            retString += player_board_query(i, col);
+        }
+
+        return retString;
+    }
+
     public void populate_input_to_model(int[][] top, int[][] side){
         top_panel = new int[BOARD_SIZE][];
         for(int i = 0; i < BOARD_SIZE; i++){
@@ -53,5 +67,13 @@ public class SolverModel {
         }
     }
 
+    public boolean isSolved(){
+        for(int i = 0; i < BOARD_SIZE; i++){
+            for(int j = 0; j < BOARD_SIZE; j++){
+                if(playerBoard[i][j] == '?') return false;
+            }
+        }
+        return true;
+    }
 
 }
