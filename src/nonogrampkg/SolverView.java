@@ -240,17 +240,17 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
     public void setFalse(int row, int col){
         JButton btn = board_buttons.get(row * BOARD_SIZE + col);
         btn.setBackground(Color.BLACK);
-        btn.setText("X");
+        // btn.setText("X");
     }
 
     public void resetColor(Color color, int row, int col){
         JButton btn = board_buttons.get(row * BOARD_SIZE + col);
         btn.setBackground(color);
-        btn.setText("");
+        // btn.setText("");
     }
 
     public void toggle_button(char current_write_symbol){
-        if(current_write_symbol == 'T'){
+        if(current_write_symbol == '1'){
             solver_buttons.get(1).setForeground(Color.BLACK);
             solver_buttons.get(1).setBackground(Color.PINK);
         }else{
@@ -287,12 +287,20 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         return side_labels;
     }
 
-    public void show_empty_error(String error_msg){
+    public void write_to_side_panel(int ind, String text){
+        side_panel.get(ind).setText(text);
+    }
+
+    public void write_to_top_panel(int ind, String text){
+        top_panel.get(ind).setText(text);
+    }
+
+    public void show_error(String error_msg){
         JOptionPane.showMessageDialog(this, error_msg, "ERROR", JOptionPane.INFORMATION_MESSAGE );
     }
 
-    public void show_bounds_error(String error_msg){
-        JOptionPane.showMessageDialog(this, error_msg, "ERROR", JOptionPane.INFORMATION_MESSAGE);
+    public void show_unsolvable(){
+        JOptionPane.showMessageDialog(this, "Unsolvable Puzzle!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void disruptDrag(){
