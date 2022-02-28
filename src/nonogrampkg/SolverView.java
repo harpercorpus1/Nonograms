@@ -38,9 +38,15 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
     private List<JTextPane> side_panel;
 
     boolean currently_compressed;
+    boolean writable;
 
     SolverController controller;
 
+    /**
+     * This is the constructor that creates the JFrame Object that displays our entire application
+     * It calls several other functions to initialize the panels within it to display them.
+     * @param size - dimension of the player board = (size x size)
+     */
     public SolverView(int size){
         super("SolverView");
 
@@ -52,6 +58,7 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
 
         BOARD_SIZE = size;
         currently_compressed = false;
+        writable = true;
 
         board_buttons = new ArrayList<JButton>();
         solver_buttons = new ArrayList<JButton>();
@@ -78,6 +85,9 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         this.setVisible(true);
     }
 
+    /**
+     * Creates the panel holding the title at the top of the JFrame.
+     */
     public void init_title_panel(){
         firstPanel = new JPanel();
         firstPanel.setMaximumSize(new Dimension(600,100));
@@ -90,6 +100,14 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         firstPanel.add(title);
     }
 
+    /**
+     * Generates a GridBagConstraints object that has standardized weights.
+     * @param x - x-coordinate position on the display
+     * @param y - y-coordinate posiiton on the display
+     * @param width - number of coordinate positions to cover horizontally
+     * @param height - number of coordinate positions to cover vertically
+     * @return the generated GridBagConstraints Object
+     */
     public GridBagConstraints generate_constraints(int x, int y, int width, int height){
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = x;
@@ -101,6 +119,11 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         return constraints;
     }
 
+    /**
+     * Generates a button with the dimensions defined by the parameter
+     * @param dim - Dimension object that holds the correct size of the button
+     * @return the generated JButton Object
+     */
     public JButton button_factory(Dimension dim){
         JButton btn = new JButton();
         btn.setMinimumSize(dim);
@@ -109,6 +132,11 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         return btn;
     }
 
+    /**
+     * Generates a JTextPane Object with the dimensions given by the parameter
+     * @param dim - Dimension object that defines the correct size of the button
+     * @return the generated JTextPane Object
+     */
     public JTextPane textpane_factory(Dimension dim){
         JTextPane text_pane = new JTextPane();
         text_pane.setMinimumSize(dim);
@@ -117,6 +145,10 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         return text_pane;
     }
 
+    /**
+     * Initializes and registers all the objects that are contained in the center panel 
+     * of the Display, which holds the player board, and input panels. 
+     */
     public void init_nonogram_board(){
         playerBoard = new JPanel();
         playerBoard.setLayout(new GridBagLayout());
@@ -173,6 +205,10 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         }
     }
 
+    /**
+     * Initializes and registers all the objects that are contained in the bottom panel
+     * of the Display, holding the solve and clear buttons
+     */
     public void init_solver_panel(){
         solveButtonPanel = new JPanel();
         solveButtonPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -223,32 +259,62 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         solveButtonPanel.setBackground(Color.BLACK);
     }
 
+    /**
+     * Registers the controller to the SolverView Class
+     * @param ctr - controller to be registered
+     */
     public void registerController(SolverController ctr){
         this.controller = ctr;
     }
 
+    /**
+     * Colors a JButton on the playerBoard
+     * @param color - color to change the button to
+     * @param row - row of the button within the player board
+     * @param col - column of the button within the player board
+     */
     public void setColor(Color color, int row, int col){
         board_buttons.get(row * BOARD_SIZE + col).setBackground(color);
     }
 
+    /**
+     * Holds the logic for displaying the logical '1' for a button to the screen
+     * @param row - row of the button that is to be changed
+     * @param col - column of the button that is to be changed
+     */
     public void setTrue(int row, int col){
         JButton btn = board_buttons.get(row * BOARD_SIZE + col);
         btn.setBackground(Color.PINK);
         btn.setText("");
     }
 
+    /**
+     * Holds the logic for displaying the logical '0' for a button to the screen
+     * @param row - row of the button that is to be changed
+     * @param col - column of the button that is to be changed
+     */
     public void setFalse(int row, int col){
         JButton btn = board_buttons.get(row * BOARD_SIZE + col);
         btn.setBackground(Color.BLACK);
         // btn.setText("X");
     }
 
+    /**
+     * Displays the button in the default manner
+     * @param color - color to change the button to
+     * @param row - row of the button to be changed
+     * @param col - column of the button to be changed
+     */
     public void resetColor(Color color, int row, int col){
         JButton btn = board_buttons.get(row * BOARD_SIZE + col);
         btn.setBackground(color);
         // btn.setText("");
     }
 
+    /**
+     * Changes the state of the toggle button
+     * @param current_write_symbol - either '1' or '0' showing what state the write condition is in
+     */
     public void toggle_button(char current_write_symbol){
         if(current_write_symbol == '1'){
             solver_buttons.get(1).setForeground(Color.BLACK);
@@ -259,6 +325,10 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         }
     }
 
+    /**
+     * Reads text input from the top input panel
+     * @return Array of Strings that contain the input from all nodes of the top panel
+     */
     public String[] read_top_panel(){
         String[] top_labels = new String[BOARD_SIZE];
         for(int i = 0; i < BOARD_SIZE; i++){
@@ -267,18 +337,10 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         return top_labels;
     }
 
-    public void clear_top_panel(){
-        for(int i = 0; i < BOARD_SIZE; i++){
-            top_panel.get(i).setText("");
-        }
-    }
-
-    public void clear_side_panel(){
-        for(int i = 0; i < BOARD_SIZE; i++){
-            side_panel.get(i).setText("");
-        }
-    }
-
+    /**
+     * Reads text input from the side input panel
+     * @return Array of Strings that contain the input from all nodes of the side panel
+     */
     public String[] read_side_panels(){
         String[] side_labels = new String[BOARD_SIZE];
         for(int i = 0; i < BOARD_SIZE; i++){
@@ -287,26 +349,84 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         return side_labels;
     }
 
+    /**
+     * Clears all values from the top panel
+     */
+    public void clear_top_panel(){
+        for(int i = 0; i < BOARD_SIZE; i++){
+            top_panel.get(i).setText("");
+        }
+    }
+
+    /**
+     * Clears all values from the side panel
+     */
+    public void clear_side_panel(){
+        for(int i = 0; i < BOARD_SIZE; i++){
+            side_panel.get(i).setText("");
+        }
+    }
+    
+
+    /**
+     * Write text into an input panel on the side of the player board
+     * @param ind - index of JTextPane within side panel
+     * @param text - text to write to JTextPane
+     */
     public void write_to_side_panel(int ind, String text){
         side_panel.get(ind).setText(text);
     }
 
+    /**
+     * Write text into an input panel on the top of the player board
+     * @param ind - index of JTextPane within top panel
+     * @param text - text to write to JTextPane
+     */
     public void write_to_top_panel(int ind, String text){
         top_panel.get(ind).setText(text);
     }
 
+    /**
+     * Displays an error message
+     * @param error_msg - error message to display
+     */
     public void show_error(String error_msg){
         JOptionPane.showMessageDialog(this, error_msg, "ERROR", JOptionPane.INFORMATION_MESSAGE );
     }
 
+    /**
+     * Displays to show the user when the puzzle inputted is not solvable
+     */
     public void show_unsolvable(){
         JOptionPane.showMessageDialog(this, "Unsolvable Puzzle!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * this cuts off the button activation functions by drag, 
+     * therefore stopping coloring
+     */
     public void disruptDrag(){
         currently_compressed = false;
     }
 
+    /**
+     * Makes it so the User can write on the player board
+     */
+    public void enable_write(){
+        writable = true;
+    }
+
+    /**
+     * Makes it so the User cannot write on the player board
+     */
+    public void disable_write(){
+        writable = false;
+    }
+
+    /**
+     * Function catches all button clicks in the bottom panel of the screen
+     * @param e - ActionEvent, activates on button click
+     */
     @Override
     public void actionPerformed(ActionEvent e){
         Object source = e.getSource();
@@ -315,8 +435,13 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         }
     }
 
+    /**
+     * Function processes user pressing their mouse
+     * @param m - MouseEvent, activates on mouse pressing
+     */
     @Override
     public void mousePressed(MouseEvent m){
+        if(!writable) return;
         currently_compressed = true;
         Object source = m.getSource();
         if(board_buttons.contains(source)){
@@ -327,8 +452,13 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         }
     }
 
+    /**
+     * Function processes mouse clicks
+     * @param m - MouseEvent, activates on mouse clicks a member of the player board
+     */
     @Override
     public void mouseClicked(MouseEvent m){
+        if(!writable) return;
         Object source = m.getSource();
         if(board_buttons.contains(source)){
             int ind = board_buttons.indexOf(source);
@@ -338,8 +468,13 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         }
     }
 
+    /**
+     * Function processes mouse locations on buttons
+     * @param m - MouseEvent, activates when a mouse enters each JButton within the player board
+     */
     @Override
     public void mouseEntered(MouseEvent m){
+        if(!writable) return;
         if(!currently_compressed){
             return;
         }
@@ -352,11 +487,18 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         }
     }
 
+    /**
+     * Unused Override
+     */
     @Override
     public void mouseExited(MouseEvent m){
         //
     }
 
+    /**
+     * Function processes when the user releases their mouse click
+     * @param m - MouseEvent, activates when the user releases their mouse click
+     */
     @Override
     public void mouseReleased(MouseEvent m){
         currently_compressed = false;
