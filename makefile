@@ -9,3 +9,5 @@ clean:
 
 all: compile run clean
 	echo "all done"
+
+rocco: compile

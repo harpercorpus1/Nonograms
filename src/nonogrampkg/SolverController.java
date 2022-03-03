@@ -6,7 +6,6 @@ package nonogrampkg;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SolverController{
     private SolverView screen;
@@ -419,78 +418,71 @@ public class SolverController{
      * This function is used when the user does not have a nonograms puzzle to input, 
      * but still would like to see the alorithm working
      * Calling this function will populate the side and top panels with values that 
-     * will draw a dog. 
+     * will draw according to the users choice
+     * @param unprocessed_cla - the name of the animal to load onto the nonograms board.
      */
-    public void draw_rocco(){
-        String[] rocco = {  "4 3",      "1 6 2",    "1 2 2 1 1",    "1 2 2 1 1",    "3 2 3", 
-                            "2 1 3",    "1 1 1",    "2 1 4 1",      "1 1 1 1 2",    "1 4 2", 
-                            "1 1 2 1",  "2 7 1",    "2 1 1 2",      "1 2 1",            "3 3",
+    public void load_tester(String unprocessed_cla){
+        String[] rocco = {   
+            "4 3",      "1 6 2",        "1 2 2 1 1",        "1 2 2 1 1",    "3 2 3", 
+            "2 1 3",    "1 1 1",        "2 1 4 1",          "1 1 1 1 2",    "1 4 2", 
+            "1 1 2 1",  "2 7 1",        "2 1 1 2",          "1 2 1",        "3 3",
                         
-                            "3 2",      "1 1 1 1",  "1 2 1 2",          "1 2 1 1 3",    "1 1 2 1",
-                            "2 3 1 2",  "9 3",      "2 3",              "1 2",          "1 1 1 1", 
-                            "1 4 1",    "1 2 2 2",  "1 1 1 1 1 1 2",    "2 1 1 2 1 1",  "3 4 3 1"
-                        };
+            "3 2",      "1 1 1 1",      "1 2 1 2",          "1 2 1 1 3",    "1 1 2 1",
+            "2 3 1 2",  "9 3",          "2 3",              "1 2",          "1 1 1 1", 
+            "1 4 1",    "1 2 2 2",      "1 1 1 1 1 1 2",    "2 1 1 2 1 1",  "3 4 3 1"
+            };
         
-        String[] duck = {   "3",        "4",        "5",        "4",        "5", 
-                            "6",        "3 2 1",    "2 2 5",    "4 2 6",    "8 2 3", 
-                            "8 2 1 1",  "2 6 2 1",  "4 6",      "2 4",      "1",
+        String[] david = {   
+            "3",        "4",            "5",                "4",            "5", 
+            "6",        "3 2 1",        "2 2 5",            "4 2 6",        "8 2 3", 
+            "8 2 1 1",  "2 6 2 1",      "4 6",              "2 4",          "1",
                             
-                            "3",        "5",    "4 3",  "7",        "5",
-                            "3",        "5",    "1 8",  "3 3 3",    "7 3 2",
-                            "5 4 2",    "8 2",  "10",   "2 3",      "6"
-                        };
+            "3",        "5",            "4 3",              "7",            "5",
+            "3",        "5",            "1 8",              "3 3 3",        "7 3 2",
+            "5 4 2",    "8 2",          "10",               "2 3",          "6"
+        };
                              
-        String[] moose = {  "2",    "3 3",      "2 2 2",    "4 6",  "5 7", 
-                            "2 7",  "3 1 4",    "7",        "2 4",  "2 6 2", 
-                            "12",   "15",       "4 10",     "1 9",  "4 8",
+        String[] geoffrey = {   
+            "2",        "3 3",          "2 2 2",            "4 6",          "5 7", 
+            "2 7",      "3 1 4",        "7",                "2 4",          "2 6 2", 
+            "12",       "15",           "4 10",             "1 9",          "4 8",
 
-                            "2 2 2 1",  "2 2 1 1 2 1",  "4 1 1 2 1",    "5 5",  "2 5",
-                            "7",        "1 1 5",        "11",           "12",   "13", 
-                            "8 5",      "1 3 5",        "5 5",          "3 6",  "6"
-                        };
-        for(int i = 0; i < model.getBoardSize(); i++){
-            screen.write_to_top_panel(i, moose[i]);
-            screen.write_to_side_panel(i, moose[model.getBoardSize() + i]);
+            "2 2 2 1",  "2 2 1 1 2 1",  "4 1 1 2 1",        "5 5",          "2 5",
+            "7",        "1 1 5",        "11",               "12",           "13", 
+            "8 5",      "1 3 5",        "5 5",              "3 6",          "6"
+        };
+
+        String[] maurice = {   
+            "2",        "3",            "1 1",              "1 1 2 1",      "2 2 1 1", 
+            "2 6 2",    "1 2 2",        "1 3 2",            "3 2 5",        "2 1 1",
+            "1 1",      "4 2 1",        "2 2 2 2",          "1 1 2 5",      "2 5",
+
+            "3",        "4 2 1",        "3 1 1 1",          "3 1 2 1",      "2 1 2",
+            "4 2 2",    "2 2 2",        "1 3 1",            "2 2 1",        "4 3", 
+            "1 1 2 2",  "1 1 1",        "1 1 1",            "5 2",          "3 2 3"
+        };
+
+        String processed_cla = unprocessed_cla.trim().toLowerCase();
+        String[] Loaded_Strings;
+
+        if(processed_cla.equals("geoffrey")){
+            Loaded_Strings = geoffrey;
+        }else if(processed_cla.equals("david")){
+            Loaded_Strings = david;
+        }else if(processed_cla.equals("maurice")){
+            Loaded_Strings = maurice;
+        }else{
+            if(!processed_cla.equals("rocco")){
+                System.out.print("You entered [" + processed_cla + "], ");
+                System.out.println("which is not a valid animal name...");
+                System.out.println("Here is Rocco for your trouble.");
+            }
+            Loaded_Strings = rocco;
         }
 
-
-        // screen.write_to_top_panel(0, "4 3");
-        // screen.write_to_top_panel(1, "1 6 2");
-        // screen.write_to_top_panel(2, "1 2 2 1 1");
-        // screen.write_to_top_panel(3, "1 2 2 1 1");
-        // screen.write_to_top_panel(4, "3 2 3");
-
-        // screen.write_to_top_panel(5, "2 1 3");
-        // screen.write_to_top_panel(6, "1 1 1");
-        // screen.write_to_top_panel(7, "2 1 4 1");
-        // screen.write_to_top_panel(8, "1 1 1 1 2");
-        // screen.write_to_top_panel(9, "1 4 2");
-        
-        // screen.write_to_top_panel(10, "1 1 2 1");
-        // screen.write_to_top_panel(11, "2 7 1");
-        // screen.write_to_top_panel(12, "2 1 1 2");
-        // screen.write_to_top_panel(13, "1 2 1");
-        // screen.write_to_top_panel(14, "3 3");
-
-        // screen.write_to_side_panel(0, "3 2");
-        // screen.write_to_side_panel(1, "1 1 1 1");
-        // screen.write_to_side_panel(2, "1 2 1 2");
-        // screen.write_to_side_panel(3, "1 2 1 1 3");
-        // screen.write_to_side_panel(4, "1 1 2 1");
-
-        // screen.write_to_side_panel(5, "2 3 1 2");
-        // screen.write_to_side_panel(6, "9 3");
-        // screen.write_to_side_panel(7, "2 3");
-        // screen.write_to_side_panel(8, "1 2");
-        // screen.write_to_side_panel(9, "1 1 1 1");
-
-        // screen.write_to_side_panel(10, "1 4 1");
-        // screen.write_to_side_panel(11, "1 2 2 2");
-        // screen.write_to_side_panel(12, "1 1 1 1 1 1 2");
-        // screen.write_to_side_panel(13, "2 1 1 2 1 1");
-        // screen.write_to_side_panel(14, "3 4 3 1");
-
+        for(int i = 0; i < model.getBoardSize(); i++){
+            screen.write_to_top_panel(i, Loaded_Strings[i]);
+            screen.write_to_side_panel(i, Loaded_Strings[model.getBoardSize() + i]);
+        }
     }
-
-
 }
