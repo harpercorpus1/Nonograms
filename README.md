@@ -51,4 +51,4 @@
 </p>
 
 
-![alt-text-1]( "title-1") ![alt-text-2]( "title-2")
+![alt-text-1]("/images/Rocco.png" "title-1") ![alt-text-2]("/images/David.png" "title-2")
