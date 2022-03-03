@@ -1,3 +1,10 @@
+/*****************************************
+ * Harper Corpus 03.03.2022
+ * Model Class of the MVC architecture
+ * This file holds all logic containing
+ * back end data storage of the Java App
+ ****************************************/
+
 package nonogrampkg;
 
 public class SolverModel {
