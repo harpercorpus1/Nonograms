@@ -1,5 +1,9 @@
 /*****************************************
- * 
+ * Harper Corpus 03.03.2022
+ * Controller Class of the MVC architecture
+ * This file holds all logic containing
+ * computations/solving/data movement 
+ * logic of the Java App. 
  ****************************************/
 
 package nonogrampkg;

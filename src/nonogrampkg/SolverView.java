@@ -1,3 +1,10 @@
+/*****************************************
+ * Harper Corpus 03.03.2022
+ * View Class of the MVC architecture
+ * This file holds all logic containing
+ * the front end of this Java App. 
+ ****************************************/
+
 package nonogrampkg;
 
 import javax.swing.*;

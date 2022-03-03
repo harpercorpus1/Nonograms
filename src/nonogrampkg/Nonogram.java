@@ -1,4 +1,11 @@
-package nonogrampkg;
+/*****************************************
+ * Harper Corpus 03.03.2022
+ * This is the file containing the main 
+ * function for this Java App. Very short 
+ * and simple. 
+ ****************************************/
+
+ package nonogrampkg;
 
 public final class Nonogram{
     public static void main(String[] args){
