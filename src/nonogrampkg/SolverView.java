@@ -2,11 +2,6 @@ package nonogrampkg;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.GapContent;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,14 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SolverView extends JFrame implements MouseListener, ActionListener {
-//    private final List<JButton> board;
     private static int BOARD_SIZE;
-    private static final int GAME_BUTTON_SIZE = 20;
-    private Dimension BUTTON_DIM; 
-
-    // private int[] topLabel;
-    // private int[] sideLabel;
-    // private JFrame frame;
 
     private JPanel mainPanel;
     private JPanel firstPanel;
@@ -92,7 +80,7 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         firstPanel = new JPanel();
         firstPanel.setMaximumSize(new Dimension(600,100));
 
-        JLabel title = new JLabel("Solver");
+        JLabel title = new JLabel("Nonogram Solver");
         title.setFont(new Font("Serif", Font.BOLD, 60));
         title.setForeground((Color.PINK));
         title.setBorder(new EmptyBorder(10,0,0,0));
@@ -503,5 +491,4 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
     public void mouseReleased(MouseEvent m){
         currently_compressed = false;
     }
-    
 }

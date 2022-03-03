@@ -7,6 +7,11 @@ public final class Nonogram{
         SolverModel model = new SolverModel(15);
         SolverController ctr = new SolverController(model, screen);
         screen.registerController(ctr);
-        ctr.draw_rocco();
+        if(args.length == 1){
+            ctr.load_tester(args[0]);
+        }else if(args.length > 1){
+            System.out.println("Usage [./Nonogram.sh [optional tester command]");
+            return;
+        }
     }
 }
