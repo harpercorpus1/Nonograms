@@ -13,7 +13,8 @@
 
 <h3>Usage</h3>
 <p>
-  
+  Standard Mode requires no command line arguments <br>
+  <b>Usage</b>: "./Nonograms.sh"
 </p>
 
 <h2>Pre-load Mode</h2>
@@ -31,24 +32,30 @@
 
 <h2>Animals</h2>
 
-<h3>Rocco</h3>
-<img src="" alt="Rocco">
-
-<h3>David</h3>
-<img src="" alt="David">
-
-<h3>Geoffrey</h3>
-<img src="" alt="Geoffrey">
-
-<h3>Maurice</h3>
-<img src="" alt="Maurice">
-
-
-<p float="left">
-  <img src="" width="100" />
-  <img src="" width="100" /> 
-  <img src="" width="100" />
-</p>
-
-
-![alt-text-1]("/images/Rocco.png" "title-1") ![alt-text-2]("/images/David.png" "title-2")
+<table border="0">
+ <tr>
+    <td><b style="font-size:100px">Rocco</b></td>
+    <td><b style="font-size:100px">David</b></td>
+ </tr>
+ <tr>
+    <td>
+      <img src="/images/Rocco.png" width="200" />
+    </td>
+    <td>
+      <img src="/images/David.png" width="200" /> 
+    </td>
+ </tr>
+  
+ <tr>
+    <td><b style="font-size:100px">Geoffrey</b></td>
+    <td><b style="font-size:100px">Maurice</b></td>
+ </tr>
+ <tr>
+    <td>
+      <img src="/images/Geoffrey.png" width="200" />
+    </td>
+    <td>
+      <img src="/images/Maurice.png" width="200" /> 
+    </td>
+ </tr>
+</table>
