@@ -49,9 +49,12 @@ public class SolverController{
      */
     public void processSolverButton(int ind){
         switch(ind){
-            case 0: clear_board();      break;
-            case 1: toggle_write();     break;
-            case 2: solve();            break;
+            case 0: clear_board();                  break;
+            case 1: screen.clear_side_panel();      break;
+            case 2: screen.clear_top_panel();       break;
+            case 3: clear_all();                    break;
+            case 4: toggle_write();                 break;
+            case 5: solve();                        break;
             default:
                 // Error Condition
                 throw new IllegalArgumentException(Integer.toString(ind));
@@ -59,8 +62,18 @@ public class SolverController{
     }
 
     /** 
-     * resets player board in the model as well as the screen
+     * resets screen
     */
+    public void clear_all(){
+        model.clear_board();
+        clear_board();
+        screen.clear_side_panel();
+        screen.clear_top_panel();
+    }
+
+    /**
+     * clears player board
+     */
     public void clear_board(){
         model.clear_board();
         for(int row = 0; row < model.getBoardSize(); row++){
@@ -68,8 +81,6 @@ public class SolverController{
                 screen.resetColor(Color.LIGHT_GRAY, row, col);
             }
         }
-        screen.clear_top_panel();
-        screen.clear_side_panel();
         screen.enable_write();
     }
 
@@ -416,6 +427,13 @@ public class SolverController{
                 }
             }
         }
+    }
+
+    /**
+     * 
+     */
+    public void show_starter_message(){
+        screen.display_starter();
     }
 
     /**
