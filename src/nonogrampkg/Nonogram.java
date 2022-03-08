@@ -14,7 +14,9 @@ public final class Nonogram{
         SolverModel model = new SolverModel(15);
         SolverController ctr = new SolverController(model, screen);
         screen.registerController(ctr);
-        if(args.length == 1){
+        if(args.length == 0){
+            ctr.show_starter_message();
+        }else if(args.length == 1){
             ctr.load_tester(args[0]);
         }else if(args.length > 1){
             System.out.println("Usage [./Nonogram.sh [optional tester command]");

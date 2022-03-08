@@ -43,7 +43,7 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
      * @param size - dimension of the player board = (size x size)
      */
     public SolverView(int size){
-        super("SolverView");
+        super("Nonogram Solver");
 
         try{
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -76,7 +76,7 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
         this.setContentPane(mainPanel);
         mainPanel.setBackground(Color.BLACK);
 
-        this.setMinimumSize(new Dimension(700,900));
+        this.setMinimumSize(new Dimension(700,850));
         this.setVisible(true);
     }
 
@@ -206,50 +206,114 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
      */
     public void init_solver_panel(){
         solveButtonPanel = new JPanel();
+
         solveButtonPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         solveButtonPanel.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-        solveButtonPanel.setMaximumSize(new Dimension(600,200));
+        solveButtonPanel.setMaximumSize(new Dimension(600,150));
 
         JButton btn;
 
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.gridx = 0;
-        constraints.gridy = 0;
+        constraints = generate_constraints(0, 0, 1, 1);
+        constraints.fill = GridBagConstraints.BOTH;
         btn = new JButton("Clear Board");
-
         btn.setBackground(Color.WHITE);
         btn.setForeground(Color.BLACK);
         btn.setOpaque(true);
-
-        solveButtonPanel.add(btn, constraints);
         btn.addActionListener(this);
         solver_buttons.add(btn);
-        
-        constraints.gridx = 1;
-        constraints.gridy = 0;
-        btn = new JButton("Toggle I/O");
+        solveButtonPanel.add(btn, constraints);
+
+        constraints = generate_constraints(1, 0, 1, 1);
+        constraints.fill = GridBagConstraints.BOTH;
+        btn = new JButton("Clear Side Panel");
+        btn.setBackground(Color.WHITE);
+        btn.setForeground(Color.BLACK);
+        btn.setOpaque(true);
+        btn.addActionListener(this);
+        solver_buttons.add(btn);
+        solveButtonPanel.add(btn, constraints);
+
+        constraints = generate_constraints(2, 0, 1, 1);
+        constraints.fill = GridBagConstraints.BOTH;
+        btn = new JButton("Clear Top Panel");
+        btn.setBackground(Color.WHITE);
+        btn.setForeground(Color.BLACK);
+        btn.setOpaque(true);
+        btn.addActionListener(this);
+        solver_buttons.add(btn);
+        solveButtonPanel.add(btn, constraints);
+
+        constraints = generate_constraints(3, 0, 1, 1);
+        constraints.fill = GridBagConstraints.BOTH;
+        btn = new JButton("Clear All");
+        btn.setBackground(Color.WHITE);
+        btn.setForeground(Color.BLACK);
+        btn.setOpaque(true);
+        btn.addActionListener(this);
+        solver_buttons.add(btn);
+        solveButtonPanel.add(btn, constraints);
+
+        constraints = generate_constraints(0, 1, 2, 1);
+        constraints.fill = GridBagConstraints.BOTH;
+        btn = new JButton("Toggle Write");
         btn.setBackground(Color.PINK);
         btn.setForeground(Color.BLACK);
         btn.setOpaque(true);
-
-        solveButtonPanel.add(btn, constraints);
         btn.addActionListener(this);
         solver_buttons.add(btn);
- 
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.gridwidth = 2;
-        btn = new JButton("Solve");
+        solveButtonPanel.add(btn, constraints);
 
+        constraints = generate_constraints(2, 1, 2, 1);
+        constraints.fill = GridBagConstraints.BOTH;
+        btn = new JButton("Solve");
         btn.setBackground(Color.WHITE);
         btn.setForeground(Color.BLACK);
         btn.setOpaque(true);
-
-        solveButtonPanel.add(btn, constraints);
         btn.addActionListener(this);
         solver_buttons.add(btn);
+        solveButtonPanel.add(btn, constraints);
+
+
+        
+
+        // constraints.fill = GridBagConstraints.HORIZONTAL;
+        // constraints.gridx = 0;
+        // constraints.gridy = 0;
+        // btn = new JButton("Clear Board");
+
+        // btn.setBackground(Color.WHITE);
+        // btn.setForeground(Color.BLACK);
+        // btn.setOpaque(true);
+
+        // solveButtonPanel.add(btn, constraints);
+        // btn.addActionListener(this);
+        // solver_buttons.add(btn);
+        
+        // constraints.gridx = 1;
+        // constraints.gridy = 0;
+        // btn = new JButton("Toggle Write");
+        // btn.setBackground(Color.PINK);
+        // btn.setForeground(Color.BLACK);
+        // btn.setOpaque(true);
+
+        // solveButtonPanel.add(btn, constraints);
+        // btn.addActionListener(this);
+        // solver_buttons.add(btn);
+ 
+        // constraints.gridx = 0;
+        // constraints.gridy = 2;
+        // constraints.fill = GridBagConstraints.HORIZONTAL;
+        // constraints.gridwidth = 2;
+        // btn = new JButton("Solve");
+
+        // btn.setBackground(Color.WHITE);
+        // btn.setForeground(Color.BLACK);
+        // btn.setOpaque(true);
+
+        // solveButtonPanel.add(btn, constraints);
+        // btn.addActionListener(this);
+        // solver_buttons.add(btn);
 
         solveButtonPanel.setBackground(Color.BLACK);
     }
@@ -312,11 +376,11 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
      */
     public void toggle_button(char current_write_symbol){
         if(current_write_symbol == '1'){
-            solver_buttons.get(1).setForeground(Color.BLACK);
-            solver_buttons.get(1).setBackground(Color.PINK);
+            solver_buttons.get(4).setForeground(Color.BLACK);
+            solver_buttons.get(4).setBackground(Color.PINK);
         }else{
-            solver_buttons.get(1).setForeground(Color.WHITE);
-            solver_buttons.get(1).setBackground(Color.BLACK);
+            solver_buttons.get(4).setForeground(Color.WHITE);
+            solver_buttons.get(4).setBackground(Color.BLACK);
         }
     }
 
@@ -394,6 +458,17 @@ public class SolverView extends JFrame implements MouseListener, ActionListener 
      */
     public void show_unsolvable(){
         JOptionPane.showMessageDialog(this, "Unsolvable Puzzle!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * 
+     */
+    public void display_starter(){
+        String IntroMessage = 
+        "Welcome to the Nonogram Solver!\n" + 
+        "To input in the boxes, please enter your numbers with one space in between\n" + 
+        "Draw any patterns you already have on the board!";
+        JOptionPane.showMessageDialog(this, IntroMessage, "Welcome!", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
